@@ -66,7 +66,7 @@ public class Main {
             iteration++;
             network.setOptions(config);
             String startDate = new Date().toString();
-            System.out.println(startDate + ": Classifying configuration " + iteration + "..");
+            System.out.println(startDate + ": Classifying configuration " + iteration + " with options: " + config);
             network.classify();
             log.write("=================================== Testing configuration " + iteration + " ===================================\n");
             log.write("Started: " + startDate);
