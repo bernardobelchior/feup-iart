@@ -65,10 +65,12 @@ public class Main {
         for (String config : configurations) {
             iteration++;
             network.setOptions(config);
-            System.out.println(new Date().toString() + ": Classifying configuration " + iteration + "..");
+            String startDate = new Date().toString();
+            System.out.println(startDate + ": Classifying configuration " + iteration + "..");
             network.classify();
             log.write("=================================== Testing configuration " + iteration + " ===================================\n");
-            log.write(new Date().toString());
+            log.write("Started: " + startDate);
+            log.write("Finished: " + new Date().toString());
             log.write(network.getModelInfo());
             log.write("=================================== End of configuration " + iteration + " ===================================\n\n");
             log.flush();
