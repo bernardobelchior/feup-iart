@@ -69,8 +69,8 @@ public class Main {
             System.out.println(startDate + ": Classifying configuration " + iteration + " with options: " + config);
             network.classify();
             log.write("=================================== Testing configuration " + iteration + " ===================================\n");
-            log.write("Started: " + startDate);
-            log.write("\nFinished: " + new Date().toString());
+            log.write("Started: " + startDate + "\n");
+            log.write("Finished: " + new Date().toString() + "\n");
             log.write(network.getModelInfo());
             log.write("=================================== End of configuration " + iteration + " ===================================\n\n");
             log.flush();
