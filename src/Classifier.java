@@ -11,6 +11,10 @@ public class Classifier {
         classifier = new MultilayerPerceptron();
     }
 
+    void setHiddenLayers(String hiddenLayers) {
+        classifier.setHiddenLayers(hiddenLayers);
+    }
+
     void addHiddenLayer(String hiddenLayer) throws Exception {
         if (!(hiddenLayer.equals("a") || hiddenLayer.equals("i") || hiddenLayer.equals("t") || hiddenLayer.equals("o")))
             throw new Exception("Invalid option in hidden layer: \"" + hiddenLayer + "\".");

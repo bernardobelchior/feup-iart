@@ -1,9 +1,8 @@
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Main {
-    public static void main(String... args) throws IOException {
+    public static void main(String... args) throws Exception {
         Parser parser = new Parser();
         Classifier classifier = new Classifier();
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -41,6 +40,15 @@ public class Main {
 
             System.out.println("Invalid option. Valid options are \"yes\" or \"no\".");
         } while (true);
+
+        System.out.println("Set the number of nodes or wildcards in each of hidden layers separated by commas.");
+        System.out.println("Wildcards: 't' = no. of attributes + no. of classes");
+        System.out.println("           'a' = (no. of attributes + no. of classes) / 2");
+        System.out.println("           'i' = no. of attributes");
+        System.out.println("           'o' = no. of classes");
+        System.out.print("Answer: ");
+
+        classifier.setHiddenLayers(reader.readLine());
 
         System.out.print("Set learning rate ]0, 1]: ");
         classifier.setLearningRate(Double.parseDouble(reader.readLine()));
