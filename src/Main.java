@@ -70,7 +70,7 @@ public class Main {
             network.classify();
             log.write("=================================== Testing configuration " + iteration + " ===================================\n");
             log.write("Started: " + startDate);
-            log.write("Finished: " + new Date().toString());
+            log.write("\nFinished: " + new Date().toString());
             log.write(network.getModelInfo());
             log.write("=================================== End of configuration " + iteration + " ===================================\n\n");
             log.flush();
