@@ -42,15 +42,16 @@ public class Main {
     private static boolean runClassifiers(NeuralNetwork network, String configurationFile) throws Exception {
         BufferedReader reader;
         BufferedWriter log;
+        BufferedWriter csv;
         ArrayList<String> configurations = new ArrayList<>();
         try {
             reader = new BufferedReader(new FileReader(configurationFile));
             log = new BufferedWriter(new FileWriter(new Date().toString() + ".txt"));
+            csv = new BufferedWriter(new FileWriter(new Date().toString() + ".csv"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             return false;
         }
-
 
         System.out.println("Reading configuration file...");
         String line;
@@ -58,7 +59,6 @@ public class Main {
             configurations.add(line);
         reader.close();
         System.out.println("Finished reading configuration file.");
-
 
         System.out.println("Starting batch neural networks...");
         int iteration = 0;
@@ -68,12 +68,15 @@ public class Main {
             String startDate = new Date().toString();
             System.out.println(startDate + ": Classifying configuration " + iteration + " with options: " + config);
             network.classify();
+
             log.write("=================================== Testing configuration " + iteration + " ===================================\n");
             log.write("Started: " + startDate + "\n");
             log.write("Finished: " + new Date().toString() + "\n");
             log.write(network.getModelInfo());
             log.write("=================================== End of configuration " + iteration + " ===================================\n\n");
             log.flush();
+            csv.write(network.getResultsAsCSV(iteration));
+            csv.flush();
         }
         System.out.println("Batch neural networks finished successfully...");
 

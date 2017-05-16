@@ -54,4 +54,39 @@ public class NeuralNetwork {
     public void setData(Instances data) {
         this.data = data;
     }
+
+    public String getResultsAsCSV(int iteration) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(iteration);
+        sb.append(",");
+        sb.append(classifier.getLearningRate());
+        sb.append(",");
+        sb.append(classifier.getMomentum());
+        sb.append(",");
+        sb.append(classifier.getTrainingTime());
+        sb.append(",");
+        sb.append(classifier.getHiddenLayers());
+        sb.append(",");
+        sb.append(evaluation.correct());
+        sb.append(",");
+        sb.append(evaluation.incorrect());
+        sb.append(",");
+        sb.append(evaluation.kappa());
+        sb.append(",");
+        sb.append(evaluation.meanAbsoluteError());
+        sb.append(",");
+        sb.append(evaluation.rootMeanSquaredError());
+        sb.append(",");
+        try {
+            sb.append(evaluation.relativeAbsoluteError());
+        } catch (Exception e) {
+            sb.append("ERROR");
+        }
+        sb.append(",");
+        sb.append(evaluation.rootRelativeSquaredError());
+        sb.append(",");
+        sb.append(evaluation.numInstances());
+        sb.append(",");
+        return sb.toString();
+    }
 }
