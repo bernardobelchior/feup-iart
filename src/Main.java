@@ -1,5 +1,6 @@
-import java.io.*;
-import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Date;
 
 public class Main {
@@ -28,11 +29,10 @@ public class Main {
         neuralNetwork.setData(parser.getData());
 
         if (args.length < 3 || !runClassifiers(neuralNetwork, args[2])) {
-            readConfiguration(reader, neuralNetwork);
+            readConfigurationFromStdIn(reader, neuralNetwork);
             System.out.println("Starting classifier...");
             neuralNetwork.classify();
             System.out.println("Classifier finished successfully!");
-
             System.out.println(neuralNetwork.getModelInfo());
         }
 
@@ -40,58 +40,28 @@ public class Main {
     }
 
     private static boolean runClassifiers(NeuralNetwork network, String configurationFile) throws Exception {
-        BufferedReader reader;
-        BufferedWriter log;
-        BufferedWriter csv;
-        ArrayList<String> configurations = new ArrayList<>();
-        try {
-            reader = new BufferedReader(new FileReader(configurationFile));
-            log = new BufferedWriter(new FileWriter(new Date().toString() + ".txt"));
-            csv = new BufferedWriter(new FileWriter(new Date().toString() + ".csv"));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return false;
-        }
+        ResultCSVFormatter csvFormatter = new ResultCSVFormatter(network);
+        ConfigurationReader configReader = new ConfigurationReader(network);
 
-        String header = "\"Configuration Number\",\"Options\",,,,\"Classified Instances\",,,,\"Kappa Statistic\",\"Mean Absolute Error\",\"Root Mean Squared Error\",\"Relative Absolute Error\",\"Root Relative Absolute Error\",\"Total Number of Instances\"\n,\"Learning Rate\",\"Momentum\",\"Epochs\",\"Hidden Layers\",\"Correct\",\"Correct %\",\"Incorrect\",\"Incorrect %\",,,,,,\n";
-        csv.write(header);
-        csv.flush();
-
-        System.out.println("Reading configuration file...");
-        String line;
-        while ((line = reader.readLine()) != null)
-            configurations.add(line);
-        reader.close();
-        System.out.println("Finished reading configuration file.");
-
+        configReader.readConfigFrom(configurationFile);
 
         System.out.println("Starting batch neural networks...");
-        int iteration = 0;
-        for (String config : configurations) {
-            iteration++;
-            network.setOptions(config);
-            String startDate = new Date().toString();
-            System.out.println(startDate + ": Classifying configuration " + iteration + " with options: " + config);
+
+        while (configReader.hasNextConfig()) {
+            configReader.nextConfig();
+            System.out.println(new Date().toString() + ": Classifying configuration " + configReader.getConfigNumber() + " with options: " + configReader.getCurrentConfig());
             network.classify();
 
-            log.write("=================================== Testing configuration " + iteration + " ===================================\n");
-            log.write("Started: " + startDate + "\n");
-            log.write("Finished: " + new Date().toString() + "\n");
-            log.write(network.getModelInfo());
-            log.write("=================================== End of configuration " + iteration + " ===================================\n\n");
-            log.flush();
-            csv.write(network.getResultsAsCSV(iteration));
-            csv.write("\n");
-            csv.flush();
+            csvFormatter.exportToCSV(new Date().toString() + ".csv");
         }
+
         System.out.println("Batch neural networks finished successfully...");
 
-        log.close();
 
         return true;
     }
 
-    private static void readConfiguration(BufferedReader reader, NeuralNetwork neuralNetwork) throws IOException {
+    private static void readConfigurationFromStdIn(BufferedReader reader, NeuralNetwork neuralNetwork) throws IOException {
         String answer;
 
         do {

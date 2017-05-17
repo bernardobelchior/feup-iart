@@ -55,41 +55,51 @@ public class NeuralNetwork {
         this.data = data;
     }
 
-    public String getResultsAsCSV(int iteration) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(iteration);
-        sb.append(",");
-        sb.append(classifier.getLearningRate());
-        sb.append(",");
-        sb.append(classifier.getMomentum());
-        sb.append(",");
-        sb.append(classifier.getTrainingTime());
-        sb.append(",");
-        sb.append(classifier.getHiddenLayers());
-        sb.append(",");
-        sb.append(evaluation.correct());
-        sb.append(",");
-        sb.append(",");
-        sb.append(evaluation.incorrect());
-        sb.append(",");
-        sb.append(",");
-        sb.append(evaluation.kappa());
-        sb.append(",");
-        sb.append(evaluation.meanAbsoluteError());
-        sb.append(",");
-        sb.append(evaluation.rootMeanSquaredError());
-        sb.append(",");
-        try {
-            sb.append(evaluation.relativeAbsoluteError()/100f);
-        } catch (Exception e) {
-            sb.append("ERROR");
-        }
-        sb.append(",");
-        sb.append(evaluation.rootRelativeSquaredError()/100f);
-        sb.append(",");
-        sb.append(evaluation.numInstances());
-        sb.append(",");
-        sb.append(",");
-        return sb.toString();
+    public double getLearningRate() {
+        return classifier.getLearningRate();
+    }
+
+    public double getMomentum() {
+        return classifier.getMomentum();
+    }
+
+    public int getTrainingTime() {
+        return classifier.getTrainingTime();
+    }
+
+    public String getHiddenLayers() {
+        return classifier.getHiddenLayers();
+    }
+
+    public double correct() {
+        return evaluation.correct();
+    }
+
+    public double incorrect() {
+        return evaluation.incorrect();
+    }
+
+    public double kappa() {
+        return evaluation.kappa();
+    }
+
+    public double meanAbsoluteError() {
+        return evaluation.meanAbsoluteError();
+    }
+
+    public double rootMeanSquaredError() {
+        return evaluation.meanAbsoluteError();
+    }
+
+    public double relativeAbsoluteError() throws Exception {
+        return evaluation.relativeAbsoluteError() / 100f;
+    }
+
+    public double rootRelativeSquaredError() {
+        return evaluation.rootRelativeSquaredError() / 100f;
+    }
+
+    public double numInstances() {
+        return evaluation.numInstances();
     }
 }
