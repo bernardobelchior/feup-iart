@@ -69,7 +69,9 @@ public class NeuralNetwork {
         sb.append(",");
         sb.append(evaluation.correct());
         sb.append(",");
+        sb.append(",");
         sb.append(evaluation.incorrect());
+        sb.append(",");
         sb.append(",");
         sb.append(evaluation.kappa());
         sb.append(",");
@@ -78,14 +80,15 @@ public class NeuralNetwork {
         sb.append(evaluation.rootMeanSquaredError());
         sb.append(",");
         try {
-            sb.append(evaluation.relativeAbsoluteError());
+            sb.append(evaluation.relativeAbsoluteError()/100f);
         } catch (Exception e) {
             sb.append("ERROR");
         }
         sb.append(",");
-        sb.append(evaluation.rootRelativeSquaredError());
+        sb.append(evaluation.rootRelativeSquaredError()/100f);
         sb.append(",");
         sb.append(evaluation.numInstances());
+        sb.append(",");
         sb.append(",");
         return sb.toString();
     }

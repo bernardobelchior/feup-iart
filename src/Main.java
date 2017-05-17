@@ -53,12 +53,17 @@ public class Main {
             return false;
         }
 
+        String header = "\"Configuration Number\",\"Options\",,,,\"Classified Instances\",,,,\"Kappa Statistic\",\"Mean Absolute Error\",\"Root Mean Squared Error\",\"Relative Absolute Error\",\"Root Relative Absolute Error\",\"Total Number of Instances\"\n,\"Learning Rate\",\"Momentum\",\"Epochs\",\"Hidden Layers\",\"Correct\",\"Correct %\",\"Incorrect\",\"Incorrect %\",,,,,,\n";
+        csv.write(header);
+        csv.flush();
+
         System.out.println("Reading configuration file...");
         String line;
         while ((line = reader.readLine()) != null)
             configurations.add(line);
         reader.close();
         System.out.println("Finished reading configuration file.");
+
 
         System.out.println("Starting batch neural networks...");
         int iteration = 0;
@@ -76,6 +81,7 @@ public class Main {
             log.write("=================================== End of configuration " + iteration + " ===================================\n\n");
             log.flush();
             csv.write(network.getResultsAsCSV(iteration));
+            csv.write("\n");
             csv.flush();
         }
         System.out.println("Batch neural networks finished successfully...");
