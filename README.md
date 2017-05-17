@@ -17,3 +17,8 @@ The network configuration file consists of a line for every training session, wi
 ```
 
 The options (passed as `-A` and `-B` above) are available [here](http://weka.sourceforge.net/doc.dev/weka/classifiers/functions/MultilayerPerceptron.html). When multiple values need to be given to a corresponding flag they must be comma separated without space inbetween.
+An example could be:
+```
+-L 0.35 -M 0.5 -N 500 -H 10
+```
+Where the learning rate is equal to 0.35, the momentum to 0.5, the number of epochs to 500 and there is only one hidden layer with 10 neurons.
