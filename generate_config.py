@@ -1,7 +1,7 @@
 import sys 
 
 if (len(sys.argv) < 4):
-    print "Usage: <rate-lower-bound> <rate-upper-bound> <epochs> <hiddenLayers>"
+    print "Usage: <rate-lower-bound> <rate-upper-bound> <epochs> <hidden-layer-configuration>"
     sys.exit()
 
 lowerbound = sys.argv[1]
