@@ -13,7 +13,7 @@ public class Main {
         System.out.println("Neural Network for Phishing Websites Detection");
         System.out.println("This system uses a Neural Network with Backpropagation for result prediction.");
 
-        System.out.println("Neural Network Configuration:");
+        System.out.println("Neural Network Configuration");
 
         if (args.length > 0)
             neuralNetwork.setNumFolds(Integer.parseUnsignedInt(args[0]));
