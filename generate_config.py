@@ -11,7 +11,7 @@ upperbound = sys.argv[2]
 upperbound = int(float(upperbound)*100) + 5
 epochs = sys.argv[3]
 hiddenLayers = sys.argv[4]
-if (lowerbound = 0):
+if (lowerbound == 0):
     lowerbound = 5
 
 for i in range(lowerbound,upperbound,5):
