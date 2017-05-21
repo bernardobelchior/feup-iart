@@ -88,7 +88,7 @@ public class NeuralNetwork {
     }
 
     public double rootMeanSquaredError() {
-        return evaluation.meanAbsoluteError();
+        return evaluation.rootMeanSquaredError();
     }
 
     public double relativeAbsoluteError() throws Exception {
